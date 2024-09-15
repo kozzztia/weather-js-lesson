@@ -47,6 +47,22 @@ footer {
 header {
     height: var(--header-height);
     background: var(--main-color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    h2{
+        color : var(--background-color);
+    }
+    form{
+        input{
+            padding: 10px;
+        }
+        button{
+            padding :10px;
+        }
+
+    }
 }
 
 footer {
