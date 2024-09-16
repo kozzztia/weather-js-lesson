@@ -52,15 +52,18 @@ header {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    h2{
-        color : var(--background-color);
+
+    h2 {
+        color: var(--background-color);
     }
-    form{
-        input{
+
+    form {
+        input {
             padding: 10px;
         }
-        button{
-            padding :10px;
+
+        button {
+            padding: 10px;
         }
 
     }
@@ -73,12 +76,25 @@ footer {
 
 main {
     min-height: calc(100vh - var(--header-height) - var(--footer-height));
-    #preloader{
+
+    #preloader {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        color :#000;
+        color: #000;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .weather-card {
+        position: absolute;
+        width :500px;
+        height: 500px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: red;
         font-size: 30px;
         font-weight: bold;
     }

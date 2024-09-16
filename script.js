@@ -2,9 +2,9 @@ const cityForm = document.forms["city-form"];
 const key = 'b10a1709279e52171ae6535fa8b02312';
 const geoApi = 'http://api.openweathermap.org/geo/1.0/direct';
 const weatherApi = 'http://api.openweathermap.org/data/2.5/weather';
-const preloader = document.getElementById('preloader');
+const main = document.querySelector('main');
 
-// classes
+// классы
 class WeatherData {
     constructor(data, city) {
         this.cityName = city;
@@ -75,13 +75,35 @@ class LoadingAnimation {
     }
 }
 
-// preloader
-const loadingTexts = ["l","lo","loa","load","loadi","loadin", "loading", "loading.", "loading..","loading...",];
-const loadingAnimation = new LoadingAnimation(preloader, loadingTexts, 300);
+// Прелоадер
+const loadingTexts = ["l","lo","loa","load","loadi","loadin", "loading", "loading.", "loading..","loading..."];
+let loadingAnimation;  // Прелоадер для динамической загрузки
 
+// Создаем и добавляем прелоадер в main
+function createPreloader() {
+    const preloader = document.createElement('div');
+    preloader.id = 'preloader';
+    preloader.style.display = 'none';
+    preloader.style.textAlign = 'center';
+    preloader.style.fontSize = '24px';
+    main.appendChild(preloader);
 
-// form handler
+    // Инициализация анимации с новым элементом прелоадера
+    loadingAnimation = new LoadingAnimation(preloader, loadingTexts, 300);
+}
 
+// Удаление прелоадера из main
+function removePreloader() {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        preloader.remove();
+    }
+}
+
+// Инициализация прелоадера при загрузке страницы
+createPreloader();
+
+// Обработчик формы
 cityForm.onsubmit = formHandler;
 
 async function formHandler(e) {
@@ -97,16 +119,17 @@ async function formHandler(e) {
                 const weatherData = new WeatherData(data, city); 
                 weatherData.setDataToLocalStorage();
 
-                const weather = localStorage.getItem('weather');
-                console.log(JSON.parse(weather));
+                const weather = localStorage.getItem('weather')
+                main.innerHTML = createWeatherCard(JSON.parse(weather));
             }
         } catch (error) {
-            console.error("error when try to get information:", error);
+            console.error("Ошибка при получении данных:", error);
         } finally {
             loadingAnimation.stop(); 
+            removePreloader();
         }
     } else {
-        e.target.city.placeholder = "insert correct city";
+        e.target.city.placeholder = "Введите правильный город";
     }
 
     e.target.city.value = "";
@@ -123,11 +146,19 @@ async function getCityWeather(city) {
             const weatherData = await weatherResponse.json();
             return weatherData;
         } else {
-            console.error("City not found.");
+            console.error("Город не найден.");
             return null;
         }
     } catch (error) {
-        console.error("Error fetching city weather data:", error);
+        console.error("Ошибка при запросе данных о погоде:", error);
     }
     return null;
+}
+
+function createWeatherCard(data){
+    return`
+    <div class="weather-card">
+        <img src="${data.icon}" alt="icon"/>
+    </div>
+    `
 }
