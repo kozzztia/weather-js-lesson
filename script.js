@@ -81,17 +81,19 @@ async function getCityWeather(city) {
 
 
 function createWeatherCard(data) {
+    // card
     const {cardStyle,iconStyle} = styles;
     const card = createElement('div');
-    styled(card , cardStyle)
+    styled(card , cardStyle);
 
+    // icon
     const icon = createElement('img');
     icon.src = data.icon;
     icon.alt = "weather";
     styled(icon , iconStyle)
+
     card.appendChild(icon)
     return card
 }
 
-// helper
 
