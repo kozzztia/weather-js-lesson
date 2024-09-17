@@ -94,9 +94,12 @@ main {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: red;
+        box-shadow: 2px 2px 10px #000;
+        background: #eee;
+        border-radius: 10px;
         font-size: 30px;
         font-weight: bold;
+        padding : 20px;
     }
 
 }
