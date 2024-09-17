@@ -1,16 +1,15 @@
-import {createElement,styled} from "./js/helpers.js";
+import { createElement, styled } from "./js/helpers.js";
 import styles from "./js/styles.js";
-import {LoadingAnimation,WeatherData} from "./js/elementsConstructor.js";
-import {loadingTexts, geoApi,key,weatherApi} from "./js/consts.js"
+import { LoadingAnimation, WeatherData } from "./js/elementsConstructor.js";
+import { loadingTexts, geoApi, key, weatherApi } from "./js/consts.js"
 const cityForm = document.forms["city-form"];
 const main = document.querySelector('main');
 
-let loadingAnimation; 
+let loadingAnimation;
 
 function createPreloader() {
     const preloader = document.createElement('div');
-    const {preloaderStyle} = styles;
-    preloader.id = 'preloader';
+    const { preloaderStyle } = styles;
     styled(preloader, preloaderStyle)
     main.appendChild(preloader);
 
@@ -44,7 +43,9 @@ async function formHandler(e) {
                 weatherData.setDataToLocalStorage();
 
                 const weather = localStorage.getItem('weather');
-                main.appendChild(createWeatherCard(JSON.parse(weather)));
+                const resultWeather = JSON.parse(weather);
+                console.log(resultWeather);
+                main.appendChild(createWeatherCard(resultWeather));
             }
         } catch (error) {
             console.error("bid troble with error:", error);
@@ -82,17 +83,45 @@ async function getCityWeather(city) {
 
 function createWeatherCard(data) {
     // card
-    const {cardStyle,iconStyle} = styles;
+    const { cardStyle, iconStyle, compassStyle, titleStyle, temperatureStyle, windStyle, windDirectionStyle, windArrowStyle } = styles;
     const card = createElement('div');
-    styled(card , cardStyle);
+    styled(card, cardStyle);
 
-    // icon
+    const title = createElement('h2');
+    title.innerText = `weather in : ${data.cityName}`.toUpperCase();
+    styled(title, titleStyle);
+
     const icon = createElement('img');
     icon.src = data.icon;
     icon.alt = "weather";
-    styled(icon , iconStyle)
+    styled(icon, iconStyle)
 
-    card.appendChild(icon)
+    const temperature = createElement('p');
+    temperature.innerText = `temperature is ${data.temperature} ° yet`
+    styled(temperature, temperatureStyle);
+
+
+    const wind = createElement('div');
+
+        const windDirection = createElement('img');
+        windDirection.src = "./assets/compas.svg";
+        windDirection.alt = "wind direction";
+        styled(windDirection, windDirectionStyle);
+
+        const windArrow = createElement('div');
+        windArrow.innerText = "↑";
+        windArrow.style.transform = `rotate(${data.windDirection}deg)`
+        styled(windArrow , windArrowStyle);
+
+    wind.append(windDirection , windArrow)
+    styled(wind, windStyle);
+
+    const compass = createElement('img');
+    compass.src = "./assets/compas.svg";
+    compass.alt = "compas";
+    styled(compass, compassStyle)
+
+    card.append(title, icon, wind, temperature, compass)
     return card
 }
 

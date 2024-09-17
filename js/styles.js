@@ -1,6 +1,16 @@
 const styles = {
     cardStyle: {
         position: "absolute",
+        display: "grid",
+        gridTemplateAreas: `
+            "title title title"
+            "icon . wind"
+            "temperature . ."
+
+        `,
+        gridTemplateRows: "100px auto 100px",
+        gridTemplateColums: "auto auto auto",
+        gap: "20px",
         width: "500px",
         height: "500px",
         top: "50%",
@@ -16,12 +26,78 @@ const styles = {
     iconStyle: {
         width: "100px",
         height: "100px",
-        filter: "drop-shadow(0 0 5px #000)"
+        filter: "drop-shadow(0 0 5px #000)",
+        gridArea: "icon",
     },
-    preloaderStyle:{
-        display : 'none',
-        textAlign : "center",
-        fontSize : "30px",
+    preloaderStyle: {
+        textAlign: "center",
+        fontSize: "30px",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        color: "#000",
+        fontSize: "30px",
+        fontWeight: "bold",
+    },
+    compassStyle: {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        zIndex: "-1",
+        width: "80%",
+        height: "80%",
+        opacity: "0.1",
+        objetFit: "cover",
+        objectPosition: "center",
+        gridArea: "compass",
+    },
+    titleStyle: {
+        position: "realative",
+        width: "100%",
+        textAlign: "center",
+        fontSize: "30px",
+        color: "#000",
+        opacity: '0.7',
+        gridArea: "title",
+    },
+    temperatureStyle: {
+        fontSize: "20px",
+        color: "#000",
+        opacity: '0.7',
+        gridArea: "temperature",
+    },
+    windStyle: {
+        position: "relative",
+        width: "100px",
+        height: "100px",
+        fontSize: "20px",
+        color: "#000",
+        opacity: '0.7',
+        gridArea: "wind",
+    },
+    windDirectionStyle: {
+        position: "absolute",
+        inset: "0",
+        zIndex: "-1",
+        width: "100%",
+        height: "100%",
+        opacity: "0.7",
+        objetFit: "cover",
+        objectPosition: "center",
+    },
+    windArrowStyle: {
+        width : "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "red",
+        top: "50%",
+        left: "50%",
+        fontSize: "120px",
     }
 }
 
