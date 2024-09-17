@@ -4,11 +4,13 @@ const styles = {
         display: "grid",
         gridTemplateAreas: `
             "title title title"
-            "icon . wind"
+            "icon description wind"
+            "main . speed"
             "temperature . ."
+            ". . ."
 
         `,
-        gridTemplateRows: "100px auto 100px",
+        gridTemplateRows: "40px auto 100px",
         gridTemplateColums: "auto auto auto",
         gap: "20px",
         width: "500px",
@@ -98,6 +100,25 @@ const styles = {
         top: "50%",
         left: "50%",
         fontSize: "120px",
+    },
+    speedStyle: {
+        fontSize: "20px",
+        color: "#000",
+        opacity: '0.7',
+        gridArea: "speed",
+    },
+    mainStyle:{
+        fontSize: "20px",
+        color: "#000",
+        opacity: '0.7',
+        gridArea: "main",
+    },
+    descriptionStyle:{
+        fontSize: "20px",
+        color: "#000",
+        opacity: '0.7',
+        gridArea: "description",
+        textAlign: "center",
     }
 }
 

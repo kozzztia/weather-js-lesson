@@ -3,7 +3,7 @@ import styles from "./js/styles.js";
 import { LoadingAnimation, WeatherData } from "./js/elementsConstructor.js";
 import { loadingTexts, geoApi, key, weatherApi } from "./js/consts.js"
 const cityForm = document.forms["city-form"];
-const main = document.querySelector('main');
+const mainContainer = document.querySelector('main');
 
 let loadingAnimation;
 
@@ -11,7 +11,7 @@ function createPreloader() {
     const preloader = document.createElement('div');
     const { preloaderStyle } = styles;
     styled(preloader, preloaderStyle)
-    main.appendChild(preloader);
+    mainContainer.appendChild(preloader);
 
     loadingAnimation = new LoadingAnimation(preloader, loadingTexts, 300);
 }
@@ -45,7 +45,7 @@ async function formHandler(e) {
                 const weather = localStorage.getItem('weather');
                 const resultWeather = JSON.parse(weather);
                 console.log(resultWeather);
-                main.appendChild(createWeatherCard(resultWeather));
+                mainContainer.appendChild(createWeatherCard(resultWeather));
             }
         } catch (error) {
             console.error("bid troble with error:", error);
@@ -83,7 +83,7 @@ async function getCityWeather(city) {
 
 function createWeatherCard(data) {
     // card
-    const { cardStyle, iconStyle, compassStyle, titleStyle, temperatureStyle, windStyle, windDirectionStyle, windArrowStyle } = styles;
+    const { cardStyle, iconStyle, compassStyle, titleStyle, temperatureStyle, windStyle, windDirectionStyle, windArrowStyle, speedStyle, mainStyle, descriptionStyle } = styles;
     const card = createElement('div');
     styled(card, cardStyle);
 
@@ -96,13 +96,24 @@ function createWeatherCard(data) {
     icon.alt = "weather";
     styled(icon, iconStyle)
 
-    const temperature = createElement('p');
-    temperature.innerText = `temperature is ${data.temperature} ° yet`
+    const temperature = createElement('span');
+    temperature.innerText = `t: ${data.temperature} °`
     styled(temperature, temperatureStyle);
+
+    const speed = createElement('span');
+    speed.innerText = `speed: ${data.windSpeed} km/h`
+    styled(speed, speedStyle);
+
+    const main = createElement('span');
+    main.innerText = `${data.main}`.toUpperCase();
+    styled(main, mainStyle);
+
+    const description = createElement('span');
+    description.innerText = `${data.description} today`
+    styled(description, descriptionStyle);
 
 
     const wind = createElement('div');
-
         const windDirection = createElement('img');
         windDirection.src = "./assets/compas.svg";
         windDirection.alt = "wind direction";
@@ -112,7 +123,6 @@ function createWeatherCard(data) {
         windArrow.innerText = "↑";
         windArrow.style.transform = `rotate(${data.windDirection}deg)`
         styled(windArrow , windArrowStyle);
-
     wind.append(windDirection , windArrow)
     styled(wind, windStyle);
 
@@ -121,7 +131,7 @@ function createWeatherCard(data) {
     compass.alt = "compas";
     styled(compass, compassStyle)
 
-    card.append(title, icon, wind, temperature, compass)
+    card.append(title, icon, wind, temperature, speed, description, main, compass)
     return card
 }
 
