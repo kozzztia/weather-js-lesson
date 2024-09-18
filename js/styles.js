@@ -6,15 +6,17 @@ const styles = {
             "title title title"
             "icon description wind"
             "main . speed"
-            "temperature . ."
-            ". . ."
+            "temperature humidity pressure"
+            "coordinate coordinate coordinate"
 
         `,
-        gridTemplateRows: "40px auto 100px",
+        justifyItems: "center",   // Centers content horizontally
+        alignItems: "center",     // Centers content vertically
+        gridTemplateRows: "40px auto auto 40px",
         gridTemplateColums: "auto auto auto",
         gap: "20px",
         width: "500px",
-        height: "500px",
+        height: "auto",
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
@@ -116,8 +118,36 @@ const styles = {
     descriptionStyle:{
         fontSize: "20px",
         color: "#000",
+        fontWeight: "bold",
         opacity: '0.7',
         gridArea: "description",
+        textAlign: "center",
+    },
+    coordinateStyle:{
+        fontSize: "20px",
+        color: "#000",
+        opacity: '0.7',
+        gridArea: "coordinate",
+        textAlign: "center",
+    },
+    humidityStyle:{
+        fontSize: "20px",
+        color: "#000",
+        opacity: '0.7',
+        gridArea: "humidity",
+        textAlign: "center",
+    },
+    pressureStyle:{
+        fontSize: "20px",
+        color: "#000",
+        opacity: '0.7',
+        gridArea: "pressure",
+        textAlign: "center",
+    },
+    bannerStyle:{
+        fontSize: "30px",
+        color: "#000",
+        opacity: '0.7',
         textAlign: "center",
     }
 }

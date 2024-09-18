@@ -16,7 +16,7 @@ class WeatherData {
 
     getDateForRestart() {
         const now = new Date();
-        now.setHours(now.getHours() + 2);
+        now.setMinutes(now.getMinutes() + 2);
         return now.toLocaleTimeString()
     }
 
