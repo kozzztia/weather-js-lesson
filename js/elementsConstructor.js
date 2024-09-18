@@ -4,7 +4,7 @@ class WeatherData {
         this.coord = data.coord;
         this.dateForRestart = this.getDateForRestart();
         this.country = data.sys.country;
-        this.icon = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+        this.icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
         this.description = data.weather[0].description;
         this.main = data.weather[0].main;
         this.temperature = (data.main.temp - 273.15).toFixed(1);
