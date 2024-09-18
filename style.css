@@ -65,6 +65,12 @@ header {
 
         button {
             padding: 10px;
+            cursor: pointer;
+            background: var(--background-color);
+            transition: .5s;
+            &:hover{
+                background: var(--decore-color);
+            }
         }
 
     }
